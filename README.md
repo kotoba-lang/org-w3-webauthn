@@ -18,6 +18,11 @@ host-injected, the same seam every langchain-clj host uses.
 `bytes` throughout means a plain seq/vector of ints in `[0 255]`, not a
 platform byte array, so the same code runs unchanged everywhere.
 
+See [`kotoba-lang/webauthn`](https://github.com/kotoba-lang/webauthn) for the
+result-shape substrate layer that composes this with other auth factors
+(host-port pattern, no network/crypto here either, but a different
+abstraction level).
+
 ## Usage
 
 ```clojure
