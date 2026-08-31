@@ -74,7 +74,7 @@
 ;; of these checks (ADR-2608261100).
 
 (ns webauthn.ceremony
-  (:export [client-data-problem counter-problem canonical-b64url?]))
+  (:export [main client-data-problem counter-problem canonical-b64url?]))
 
 ;; --- document accessors -------------------------------------------------------
 
@@ -179,3 +179,26 @@
     ;; nothing and only looked like it did.
     (> presented stored) :none
     :else :possible-clone))
+
+;; --- the artifact's own conformance check ------------------------------------------
+;;
+;; `main` is the browser profile's entry point -- `runtime/browser-host.mjs`
+;; refuses to instantiate a module without one -- and it is not a stub. It
+;; runs the counter finding and the canonical-encoding refusal back through
+;; the decisions above and answers 0 only when each still decides the way
+;; this object was built to decide, so a COMPILED artifact can be asked
+;; whether it is itself by a host that knows nothing about WebAuthn.
+;;
+;; Three, and short, because `main` is bounded from two sides: a module's
+;; fuel is a private global baked in at compile time (512 by default) and is
+;; spent over the life of an INSTANCE, so these calls share one budget; and
+;; the native backends evaluate `main` as a compile-time oracle with a
+;; budget of their own. The wider check lives in the suite, which has
+;; neither limit.
+
+(defn main [] :i64
+  (cond
+    (if (= (counter-problem 500 0) :possible-clone) false true) 1
+    (if (= (counter-problem 0 0) :none) false true) 2
+    (if (canonical-b64url? "A!AA") true false) 3
+    :else 0))
