@@ -8,7 +8,7 @@
   `bytes` throughout this namespace means a plain seq/vector of ints in
   [0 255] — not a platform byte array — so the same code runs unchanged
   on the JVM, ClojureScript, and SCI."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def ^:private alphabet
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
