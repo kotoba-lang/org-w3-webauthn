@@ -1,5 +1,5 @@
 (ns webauthn.core-test
-  (:require [clojure.test :refer [deftest testing is]]
+  (:require [kotoba.test :refer [deftest testing is]]
             [webauthn.core :as webauthn]))
 
 (deftest base64url-round-trip
