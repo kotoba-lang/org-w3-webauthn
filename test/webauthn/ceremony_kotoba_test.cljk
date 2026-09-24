@@ -33,7 +33,7 @@
 ;; copy of these checks (ADR-2608261100).
 
 (ns webauthn.ceremony-kotoba-test
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [kotoba.test :refer [deftest is testing]]
             [kotoba.compiler.core :as compiler]
             [kotoba.kir :as ir]
@@ -70,7 +70,7 @@
    :expected-origin origin})
 
 (deftest guest-source-is-present
-  (is (.exists guest-file) (str "kotoba object not found at " guest-file)))
+  (is (io/exists? guest-file) (str "kotoba object not found at " guest-file)))
 
 ;; --- parity ---------------------------------------------------------------------
 
