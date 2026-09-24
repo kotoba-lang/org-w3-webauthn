@@ -34,7 +34,7 @@
 
 (ns webauthn.ceremony-kotoba-test
   (:require [clojure.java.io :as io]
-            [clojure.test :refer [deftest is testing]]
+            [kotoba.test :refer [deftest is testing]]
             [kotoba.compiler.core :as compiler]
             [kotoba.kir :as ir]
             [webauthn.ceremony-guest-document :refer [->doc]]
